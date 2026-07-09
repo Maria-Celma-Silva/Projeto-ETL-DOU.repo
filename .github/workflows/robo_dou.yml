@@ -10,23 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Baixar o código do repositório
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
 
       - name: Configurar o Python
-        uses: actions/setup-python@v5 
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
 
       - name: Instalar as Bibliotecas
-        run: pip install pandas selenium webdriver-manager
+        run: pip install -r requirements.txt
 
       - name: Rodar o Pipeline ETL
         run: python main.py
 
       - name: Salvar as atualizações no GitHub
-        run: |
-          git config --global user.name 'Robô de Monitoramento DOU'
-          git config --global user.email 'celmasilva9669@gmail.com'
-          git add .
-          git commit -m "Atualização automática: Novos registros do DOU" || echo "Nenhuma mudança para salvar hoje"
-          git push || echo "Nada novo para enviar"
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: 'Robô DOU'
+          author_email: 'action@github.com'
+          message: 'Atualização automática: Novos registros do DOU'
+          add: '*.db *.xlsx'
+          push: true
