@@ -17,9 +17,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 # ==========================================
 ORGAOS_ALVO = [
     "casa civil", 
-    "ministério da previdência social", 
-    "instituto nacional do seguro social", 
-    "inss"
+    "Ministério da Previdência Social", 
+    "Instituto Nacional do Seguro Social", 
+    "INSS"
 ]
 
 PALAVRAS_CHAVE = [
