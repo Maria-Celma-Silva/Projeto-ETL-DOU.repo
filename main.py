@@ -17,9 +17,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 # ==========================================
 ORGAOS_ALVO = [
     "casa civil", 
-    "Ministério da Previdência Social", 
-    "Instituto Nacional do Seguro Social", 
-    "INSS"
+    "ministério da previdência social", 
+    "instituto nacional do seguro social", 
+    "inss"
 ]
 
 PALAVRAS_CHAVE = [
@@ -124,6 +124,32 @@ def salvar_no_banco(df_processado):
     print(f"Banco atualizado! {len(df_processado)} registros oficiais gravados.")
 
 # ==========================================
+# 4. EXPORTAÇÃO PARA PLANILHA (NOVO)
+# ==========================================
+def exportar_para_excel():
+    """Exporta todos os dados do banco para uma planilha Excel"""
+    try:
+        conn = sqlite3.connect("monitoramento_dou.db")
+        df = pd.read_sql_query("SELECT * FROM movimentacoes", conn)
+        conn.close()
+        
+        if df.empty:
+            print("Nenhum dado para exportar.")
+            return
+        
+        # Cria nome de arquivo com timestamp
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        arquivo_excel = f"relatorio_dou_{timestamp}.xlsx"
+        
+        # Exporta para Excel
+        df.to_excel(arquivo_excel, index=False, sheet_name='Movimentações')
+        print(f"✅ Planilha criada com sucesso: {arquivo_excel}")
+        print(f"   Total de registros: {len(df)}")
+        
+    except Exception as e:
+        print(f"Erro ao exportar para Excel: {e}")
+
+# ==========================================
 # ORQUESTRAÇÃO
 # ==========================================
 if __name__ == "__main__":
@@ -133,3 +159,6 @@ if __name__ == "__main__":
     if textos_reais:
         dados_filtrados = aplicar_filtros_estrategicos(textos_reais)
         salvar_no_banco(dados_filtrados)
+    
+    # Exporta para Excel ao final
+    exportar_para_excel()
