@@ -26,7 +26,7 @@ jobs:
       - name: Salvar as atualizações no GitHub
         run: |
           git config --global user.name 'Robô de Monitoramento DOU'
-          git config --global user.email 'seu_email@exemplo.com'
+          git config --global user.email 'celmasilva9669@gmail.com'
           git add .
           git commit -m "Atualização automática: Novos registros do DOU" || echo "Nenhuma mudança para salvar hoje"
           git push || echo "Nada novo para enviar"
