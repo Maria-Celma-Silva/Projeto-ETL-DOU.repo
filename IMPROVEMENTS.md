@@ -1,6 +1,5 @@
 # 🚀 Guia de Melhorias do Pipeline ETL DOU
 
-Este documento contém todas as melhorias propostas para seu projeto, organizadas por prioridade.
 
 ## 📋 Resumo das Melhorias
 
